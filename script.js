@@ -107,7 +107,9 @@ function loadChatState() {
 
   try {
     const savedState = JSON.parse(savedStateText);
-    const savedHistory = Array.isArray(savedState.history) ? savedState.history : [];
+    const savedHistory = Array.isArray(savedState.history)
+      ? savedState.history
+      : [];
 
     if (savedHistory.length) {
       conversationHistory.push(...savedHistory);
@@ -194,7 +196,7 @@ function isAllowedTopic(question) {
   const normalizedQuestion = question.toLowerCase();
 
   return allowedTopicKeywords.some((keyword) =>
-    normalizedQuestion.includes(keyword)
+    normalizedQuestion.includes(keyword),
   );
 }
 
@@ -207,9 +209,30 @@ function updateUserMemory(question) {
     userMemory.name = nameMatch[1];
   }
 
-  const trackedGoals = ["glow", "hydration", "repair", "tone", "texture", "routine"];
-  const trackedConcerns = ["acne", "dry", "oil", "oily", "frizz", "dull", "sensitive"];
-  const trackedPreferences = ["fragrance-free", "fragrance free", "matte", "dewy", "lightweight"];
+  const trackedGoals = [
+    "glow",
+    "hydration",
+    "repair",
+    "tone",
+    "texture",
+    "routine",
+  ];
+  const trackedConcerns = [
+    "acne",
+    "dry",
+    "oil",
+    "oily",
+    "frizz",
+    "dull",
+    "sensitive",
+  ];
+  const trackedPreferences = [
+    "fragrance-free",
+    "fragrance free",
+    "matte",
+    "dewy",
+    "lightweight",
+  ];
 
   trackedGoals.forEach((goal) => {
     if (lowerQuestion.includes(goal) && !userMemory.goals.includes(goal)) {
@@ -218,7 +241,10 @@ function updateUserMemory(question) {
   });
 
   trackedConcerns.forEach((concern) => {
-    if (lowerQuestion.includes(concern) && !userMemory.concerns.includes(concern)) {
+    if (
+      lowerQuestion.includes(concern) &&
+      !userMemory.concerns.includes(concern)
+    ) {
       userMemory.concerns.push(concern);
     }
   });
@@ -238,7 +264,8 @@ function buildMemoryContextMessage() {
   const memoryParts = [];
 
   if (userMemory.name) memoryParts.push(`Name: ${userMemory.name}`);
-  if (userMemory.goals.length) memoryParts.push(`Goals: ${userMemory.goals.join(", ")}`);
+  if (userMemory.goals.length)
+    memoryParts.push(`Goals: ${userMemory.goals.join(", ")}`);
   if (userMemory.concerns.length) {
     memoryParts.push(`Concerns: ${userMemory.concerns.join(", ")}`);
   }
@@ -261,7 +288,11 @@ function trimConversationHistory() {
   if (nonSystemMessages.length <= MAX_NON_SYSTEM_MESSAGES) return;
 
   const trimmedMessages = nonSystemMessages.slice(-MAX_NON_SYSTEM_MESSAGES);
-  conversationHistory.splice(1, conversationHistory.length - 1, ...trimmedMessages);
+  conversationHistory.splice(
+    1,
+    conversationHistory.length - 1,
+    ...trimmedMessages,
+  );
 }
 
 // Start with no question shown until first submit.
@@ -288,7 +319,11 @@ if (menuToggle && quickMenu) {
     const clickedInsideMenu = quickMenu.contains(event.target);
     const clickedToggle = menuToggle.contains(event.target);
 
-    if (!clickedInsideMenu && !clickedToggle && quickMenu.classList.contains("open")) {
+    if (
+      !clickedInsideMenu &&
+      !clickedToggle &&
+      quickMenu.classList.contains("open")
+    ) {
       quickMenu.classList.remove("open");
       menuToggle.setAttribute("aria-expanded", "false");
     }
@@ -355,7 +390,7 @@ chatForm.addEventListener("submit", async (e) => {
   if (!requestSettings) {
     addMessage(
       "assistant",
-      "Setup needed: add WORKER_URL (recommended) or OPENAI_API_KEY in secrets.js."
+      "Setup needed: add WORKER_URL (recommended) or OPENAI_API_KEY in secrets.js.",
     );
     return;
   }
@@ -395,7 +430,10 @@ chatForm.addEventListener("submit", async (e) => {
     trimConversationHistory();
     saveChatState();
   } catch (error) {
-    addMessage("assistant", `Sorry, I could not answer right now. ${error.message}`);
+    addMessage(
+      "assistant",
+      `Sorry, I could not answer right now. ${error.message}`,
+    );
 
     conversationHistory.push({
       role: "assistant",
