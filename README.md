@@ -1,14 +1,46 @@
-# Project 8: L'Oréal Chatbot
+# Project 8: L'Oreal Chatbot
 
-L’Oréal is exploring the power of AI, and your job is to showcase what's possible. Your task is to build a chatbot that helps users discover and understand L’Oréal’s extensive range of products—makeup, skincare, haircare, and fragrances—as well as provide personalized routines and recommendations.
+Build a beginner-friendly chatbot that only answers L'Oreal beauty questions.
 
-## 🚀 Launch via GitHub Codespaces
+## What this starter now includes
 
-1. In the GitHub repo, click the **Code** button and select **Open with Codespaces → New codespace**.
-2. Once your codespace is ready, open the `index.html` file via the live preview.
+- L'Oreal branding (logo, palette, and chat styling)
+- Chat conversation bubbles for user and assistant
+- "Latest question" display above the chat response
+- Conversation history (`messages`) for multi-turn context
+- OpenAI call using `async/await`
+- Cloudflare Worker support for secure API usage
 
-## ☁️ Cloudflare Note
+## Local setup (temporary)
 
-When deploying through Cloudflare, make sure your API request body (in `script.js`) includes a `messages` array and handle the response by extracting `data.choices[0].message.content`.
+1. Use `secrets.js` only for local testing.
+2. Add either:
+- `WORKER_URL` (recommended)
+- or `OPENAI_API_KEY` (temporary local testing only)
+3. Open `index.html` with Live Preview.
 
-Enjoy building your L’Oréal beauty assistant! 💄
+## Cloudflare Worker setup
+
+1. Create a Worker in Cloudflare.
+2. Copy code from `RESOURCE_cloudflare-worker.js` into your Worker.
+3. In Worker settings, add secret:
+- Key: `OPENAI_API_KEY`
+- Value: your OpenAI key
+4. Deploy Worker.
+5. Copy deployed Worker URL and put it in `secrets.js` as `WORKER_URL`.
+
+## Security reminder
+
+If an API key is ever shared in chat, code, or commits, rotate it immediately in the OpenAI dashboard.
+
+## Prompt behavior
+
+The system prompt is configured so the assistant:
+
+- answers only L'Oreal and beauty-related questions
+- politely refuses unrelated topics
+- provides concise recommendations
+
+## Font case study note
+
+For your reflection requirement, review the Monotype case study on L'Oreal typography and summarize what you notice about brand consistency across products.
