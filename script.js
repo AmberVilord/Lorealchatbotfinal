@@ -169,21 +169,28 @@ function startFreshConversation() {
 
 /* Decide endpoint and headers */
 function buildRequestSettings() {
-  if (typeof WORKER_URL !== "undefined" && WORKER_URL) {
+  const workerUrl =
+    typeof globalThis.WORKER_URL === "string" ? globalThis.WORKER_URL.trim() : "";
+  const openAiApiKey =
+    typeof globalThis.OPENAI_API_KEY === "string"
+      ? globalThis.OPENAI_API_KEY.trim()
+      : "";
+
+  if (workerUrl) {
     return {
-      endpoint: WORKER_URL,
+      endpoint: workerUrl,
       headers: {
         "Content-Type": "application/json",
       },
     };
   }
 
-  if (typeof OPENAI_API_KEY !== "undefined" && OPENAI_API_KEY) {
+  if (openAiApiKey) {
     return {
       endpoint: "https://api.openai.com/v1/chat/completions",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${OPENAI_API_KEY}`,
+        Authorization: `Bearer ${openAiApiKey}`,
       },
     };
   }
@@ -390,7 +397,7 @@ chatForm.addEventListener("submit", async (e) => {
   if (!requestSettings) {
     addMessage(
       "assistant",
-      "Setup needed: add WORKER_URL (recommended) or OPENAI_API_KEY in secrets.js.",
+      "Setup needed: add WORKER_URL to config.js for deployment, or use WORKER_URL / OPENAI_API_KEY in secrets.js for local testing."
     );
     return;
   }
