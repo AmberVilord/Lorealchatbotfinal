@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>L'Oreal Beauty Advisor</title>
+    <title>L'Oreal Digital Beauty Concierge</title>
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
@@ -17,6 +17,26 @@
 
   <body>
     <div class="page-wrapper">
+      <div class="menu-shell">
+        <button
+          id="menuToggle"
+          class="menu-toggle"
+          aria-label="Open related L'Oreal links"
+          aria-controls="quickMenu"
+          aria-expanded="false"
+        >
+          <span class="material-icons">menu</span>
+        </button>
+
+        <nav id="quickMenu" class="quick-menu" aria-label="Related L'Oreal pages">
+          <a href="https://www.loreal.com/en/" target="_blank" rel="noopener noreferrer">L'Oreal Home</a>
+          <a href="https://www.loreal.com/en/our-commitments/" target="_blank" rel="noopener noreferrer">Our Commitments</a>
+          <a href="https://www.loreal.com/en/beauty-science/" target="_blank" rel="noopener noreferrer">Beauty Science</a>
+          <a href="https://www.loreal.com/en/brands/" target="_blank" rel="noopener noreferrer">Brand Portfolio</a>
+          <a href="https://www.loreal.com/en/contact-us/" target="_blank" rel="noopener noreferrer">Contact L'Oreal</a>
+        </nav>
+      </div>
+
       <!------- Header / Branding ------->
       <header class="site-header">
         <img
@@ -24,12 +44,41 @@
           alt="L'Oreal Paris logo"
           class="brand-logo"
         />
-        <h1 class="site-title">Beauty Advisor</h1>
+        <h1 class="site-title">Digital Beauty Concierge</h1>
         <p class="site-subtitle">Skincare, haircare, makeup, and routines powered by AI</p>
       </header>
 
       <!------- Chat Area ------->
-      <main>
+      <main class="content-grid">
+        <aside class="info-panel" aria-label="Beauty consultation overview">
+          <h2>Find the routine that feels right for you.</h2>
+          <p>
+            Share your beauty goals and get thoughtful recommendations for
+            skincare, haircare, makeup, and daily rituals in a polished,
+            easy-to-use space.
+          </p>
+
+          <div class="info-feature-list">
+            <article class="info-feature">
+              <h3>Tailored Advice</h3>
+              <p>Suggestions shaped around your goals and preferences.</p>
+            </article>
+            <article class="info-feature">
+              <h3>Easy Conversation</h3>
+              <p>Ask a question naturally and continue the chat with ease.</p>
+            </article>
+            <article class="info-feature">
+              <h3>Thoughtful Follow-Ups</h3>
+              <p>Your recent conversation helps guide the next reply.</p>
+            </article>
+          </div>
+
+          <p class="info-highlight">
+            Discover recommendations for glow, texture, tone, repair,
+            hydration, and finishing touches with a refined consultation feel.
+          </p>
+        </aside>
+
         <section class="chatbox">
           <div class="latest-question" id="latestQuestion" aria-live="polite"></div>
           <div id="chatWindow" class="chat-window" aria-live="polite">
@@ -51,6 +100,17 @@
               <span class="visually-hidden">Send</span>
             </button>
           </form>
+
+          <button
+            id="clearChatBtn"
+            class="clear-chat-btn"
+            type="button"
+            aria-label="Clear conversation and start over"
+            title="Clear conversation and start over"
+          >
+            <span class="material-icons" aria-hidden="true">delete</span>
+            <span class="visually-hidden">Clear conversation and start over</span>
+          </button>
         </section>
       </main>
 
